@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>San Francisco Crime</title>
+
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <style type="text/css"></style>
+
+        <link rel="stylesheet" href="crimeviz.css">
+
+    </head>
+
+        <body>
+        <div id="top-bar"> </div>
+
+        <div id="container" class="page">
+            <div id="left">
+                <h2> San Francisco Crime </h2>
+
+                <hr>
+
+                <h4> Radius of Location Filters </h4>
+                <p>
+                      <label for="nRadius"
+                     style="width: 10px; text-align: right">
+                     Blue Radius = <span id="nRadius-value">…</span>
+                    </label>
+                    <input type="range" min="1" max="400" id="nRadius">
+                </p>
+                <p>
+                    <label for="sRadius"
+                    style="width: 10px; text-align: right">
+                    Red Radius = <span id="sRadius-value">…</span>
+                    </label>
+                    <input type="range" min="1" max="400" id="sRadius">
+                </p>
+
+                <hr>
+
+                <h4> Time of Day </h4>
+                <section class="range-slider">
+                    <span class="rangeValues"></span>
+                    <input value="0" min="0" max="24" step="1" type="range" id="minValue">
+                    <input value="24" min="0" max="24" step="1" type="range" id ="maxValue">
+                </section>
+
+                <hr>
+
+                <h4> Day of week </h4>
+                <div>
+                <label for="Mon"
+                        style="clear: right; width: 10px; text-align: right"> Monday
+                    </label>
+                    <input type="checkbox" id="Mon">
+                </div>
+                <div>
+                <label for="Tue"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Tuesday
+                    </label>
+                    <input type="checkbox" id="Tue">
+                </div>
+                <div>
+                <label for="Wed"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Wednesday
+                    </label>
+                    <input type="checkbox" id="Wed">
+                </div>
+                <div>
+                <label for="Thur"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Thursday
+                    </label>
+                    <input type="checkbox" id="Thur">
+                </div>
+                <div>
+                <label for="Fri"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Friday
+                    </label>
+                    <input type="checkbox" id="Fri">
+                </div>
+                <div>
+                <label for="Sat"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Saturday
+                    </label>
+                    <input type="checkbox" id="Sat">
+                </div>
+                <div>
+                <label for="Sun"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Sunday
+                    </label>
+                    <input type="checkbox" id="Sun">
+                </div>
+
+                <hr>
+
+
+               <h4> Type of Crime </h4>
+               <div>
+               <label for="Theft"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Theft
+                    </label>
+                    <input type="checkbox" id="Theft">
+                </div>
+                <div>
+                <label for="burglary"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Burglary
+                    </label>
+                    <input type="checkbox" id="burglary">
+                </div>
+                <div>
+                <label for="vandalism"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Vandalism or Trespassing
+                    </label>
+                    <input type="checkbox" id="vandalism">
+                </div>
+                <div>
+                <label for="robbery"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Robbery
+                    </label>
+                    <input type="checkbox" id="robbery">
+                </div>
+                 <div>
+                <label for="sex"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Sex Related
+                    </label>
+                    <input type="checkbox" id="sex">
+                </div>
+                <div>
+                <label for="drug"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Drug/Narcotic
+                    </label>
+                    <input type="checkbox" id="drug">
+                </div>
+                <div>
+                <label for="alc"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Alcohol Related
+                    </label>
+                    <input type="checkbox" id="alc">
+                </div>
+                <div>
+                <label for="violent"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Assault
+                    </label>
+                    <input type="checkbox" id="violent">
+                </div>
+                <div>
+                <label for="domestic"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Domestic
+                    </label>
+                    <input type="checkbox" id="domestic">
+                </div>
+                <div>
+                <label for="missing"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Missing Person
+                    </label>
+                    <input type="checkbox" id="missing">
+                </div>
+                <div>
+                <label for="forgery"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Forgery, Fraud or Financial
+                    </label>
+                    <input type="checkbox" id="forgery">
+                </div>
+                <div>
+                <label for="other"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Other Offenses
+                    </label>
+                    <input type="checkbox" id="other">
+                </div>
+                <div>
+                <label for="warrants"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Warrants
+                    </label>
+                    <input type="checkbox" id="warrants">
+                </div>
+                <div>
+                <label for="weapon"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Weapon Laws
+                    </label>
+                    <input type="checkbox" id="weapon">
+                </div>
+                <div>
+                <label for="suspicious"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Suspicious Occ / Loitering
+                    </label>
+                    <input type="checkbox" id="suspicious">
+                </div>
+                <div>
+                <label for="nonCrim"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Non-Criminal
+                    </label>
+                    <input type="checkbox" id="nonCrim">
+                </div>
+                 <div>
+                <label for="kidnap"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Kidnapping
+                    </label>
+                    <input type="checkbox" id="kidnap">
+                </div>
+                 <div>
+                <label for="arson"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Arson
+                    </label>
+                    <input type="checkbox" id="arson">
+                </div>
+                 <div>
+                <label for="suicide"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Suicide
+                    </label>
+                    <input type="checkbox" id="suicide">
+                </div>
+                 <div>
+                <label for="runaway"
+                        style="diplay: inline-block; width: 10px; text-align: right"> Runaway
+                    </label>
+                    <input type="checkbox" id="runaway">
+                </div>
+
+                <hr>
+
+
+
+            </div>
+            <div id="right">
+
+        <script type="text/javascript">
+
+        var data;
+
+        d3.json("scpd_incidents.json", function(error, json) {
+            if(error) return console.warn(error);
+            data = json;
+
+        visualize(data);
+
+        }
+        );
+
+        //d3.select("right").append("body");
+
+        var updated_data;
+
+        var circleIns;
+
+        var homeRadius = Number(document.getElementById("nRadius").value);
+        var jobRadius = Number(document.getElementById("sRadius").value);
+        //on click -- update the data
+        //event reference generic to html
+        //how to listen to text area change
+        //"html input range"
+
+        function updateRadius(nRadius) {
+            d3.select("#nRadius-value").text(nRadius);
+            d3.select("#nRadius").property("value", nRadius);
+
+            //group.
+
+            //change so i cna change home radius and work radius
+            d3.selectAll("circle.home")
+                .attr("r", nRadius);
+
+            addlocations(updated_data);
+        }
+
+        function updateSecondRadius (sRadius) {
+            d3.select("#sRadius-value").text(sRadius);
+            d3.select("#sRadius").property("value", sRadius);
+
+            d3.selectAll("circle.job")
+                .attr("r", sRadius);
+
+            addlocations(updated_data);
+
+        }
+
+        function checkAll() {
+            document.getElementById("Mon").checked = true;
+            document.getElementById("Tue").checked = true;
+            document.getElementById("Wed").checked = true;
+            document.getElementById("Thur").checked = true;
+            document.getElementById("Fri").checked = true;
+            document.getElementById("Sat").checked = true;
+            document.getElementById("Sun").checked = true;
+
+           document.getElementById("violent").checked = true;
+           document.getElementById("Theft").checked = true;
+           document.getElementById("nonCrim").checked = true;
+           //document.getElementById("vehicle").checked = true;
+           document.getElementById("burglary").checked = true;
+           document.getElementById("vandalism").checked = true;
+           //document.getElementById("trespass").checked = true;
+           document.getElementById("robbery").checked = true;
+           document.getElementById("sex").checked = true;
+           document.getElementById("drug").checked = true;
+           document.getElementById("alc").checked = true;
+
+           document.getElementById("domestic").checked = true;
+           document.getElementById("missing").checked = true;
+           document.getElementById("forgery").checked = true;
+           document.getElementById("other").checked = true;
+           document.getElementById("suspicious").checked = true;
+           document.getElementById("weapon").checked = true;
+           document.getElementById("warrants").checked = true;
+           document.getElementById("suicide").checked = true;
+           document.getElementById("arson").checked = true;
+           document.getElementById("kidnap").checked = true;
+           document.getElementById("runaway").checked = true;
+        }
+
+        var updateClicked = function() {
+           // console.log("entered function after clicking day-checkbox");
+            addlocations(updated_data);
+        }
+
+        function getVals(){
+              // Get slider values
+              var parent = this.parentNode;
+              var max = document.getElementById("maxValue");
+              var min = document.getElementById("minValue");
+
+              var displayElement = document.getElementsByClassName("rangeValues")[0];
+                  displayElement.innerHTML = min.value + " - " + max.value;
+
+                addlocations(updated_data);
+            }
+
+            window.onload = function(){
+              // Initialize Sliders
+              var sliderSections = document.getElementsByClassName("range-slider");
+                  for( var x = 0; x < sliderSections.length; x++ ){
+                    var sliders = sliderSections[x].getElementsByTagName("input");
+                    for( var y = 0; y < sliders.length; y++ ){
+                      if( sliders[y].type ==="range" ){
+                        sliders[y].oninput = getVals;
+                        // Manually trigger event first time to display values
+                        sliders[y].oninput();
+                      }
+                    }
+                  }
+            }
+
+        var visualize = function(data) {
+            updated_data = data.data;
+
+            checkAll();
+
+
+            //FIX SP THIS WORKS
+            // d3.select("#minValue").on("click", addlocations(updated_data));
+            // d3.select("#maxValue").on("click", addlocations(updated_data));
+
+          // d3.select("#nRadius").on("input", function() {
+              //      updateRadius(homeRadius);
+             //   });
+         //  d3.select("#sRadius").on("input", function() {
+                  //  updateSecondRadius(jobRadius);
+             //   });
+            d3.select("#Mon").on("click", updateClicked);
+            d3.select("#Tue").on("click", updateClicked);
+            d3.select("#Wed").on("click", updateClicked);
+            d3.select("#Thur").on("click", updateClicked);
+            d3.select("#Fri").on("click", updateClicked);
+            d3.select("#Sat").on("click", updateClicked);
+            d3.select("#Sun").on("click", updateClicked);
+
+          //  d3.select("#trespass").on("click", updateClicked);
+            d3.select("#Theft").on("click", updateClicked);
+            d3.select("#robbery").on("click", updateClicked);
+            d3.select("#sex").on("click", updateClicked);
+            d3.select("#drug").on("click", updateClicked);
+            d3.select("#alc").on("click", updateClicked);
+            d3.select("#domestic").on("click", updateClicked);
+            d3.select("#missing").on("click", updateClicked);
+            d3.select("#forgery").on("click", updateClicked);
+            d3.select("#other").on("click", updateClicked);
+            d3.select("#suspicious").on("click", updateClicked);
+            d3.select("#weapon").on("click", updateClicked);
+            d3.select("#warrants").on("click", updateClicked);
+            d3.select("#nonCrim").on("click", updateClicked);
+            d3.select("#violent").on("click", updateClicked);
+            d3.select("#burglary").on("click", updateClicked);
+            d3.select("#other").on("click", updateClicked);
+           // d3.select("#vehicle").on("click", updateClicked);
+            d3.select("#vandalism").on("click", updateClicked);
+            d3.select("#arson").on("click", updateClicked);
+            d3.select("#suicide").on("click", updateClicked);
+            d3.select("#kidnap").on("click", updateClicked);
+            d3.select("#runaway").on("click", updateClicked);
+
+           //console.log(data);
+
+ //           d3.select("#radApply").on("click", filterTime);
+
+           // updateRadius(400); //function to update radius
+           // updateSecondRadius(400);
+
+            setPointsAandB();
+            addlocations(updated_data);
+
+            getVals();
+            window.onload();
+
+        }
+
+        //d3 selections page
+
+//        var applyFilters = function(updated_data, filters) {
+            //update the data set to do what i want with data
+ //       }
+
+
+        var colorScale = d3.scale.category10();
+
+        var dragJob = d3.behavior.drag()
+        .on("drag", dragJobDot);
+
+        var dragHome = d3.behavior.drag()
+        .on("drag", dragHomeDot);
+
+        function dragHomeDot (d) {
+            var x = d3.event.x;
+            var y = d3.event.y;
+            d3.select(this).attr("cx", x)
+            .attr("cy", y);
+
+            homeLocation[0] = x;
+            homeLocation[1] = y;
+
+            addlocations(updated_data);
+        }
+
+        function dragJobDot (d) {
+            var x = d3.event.x;
+            var y = d3.event.y;
+            d3.select(this).attr("cx", x)
+            .attr("cy", y);
+
+            jobLocation[0] = x;
+            jobLocation[1] = y;
+
+            addlocations(updated_data);
+        }
+
+          // Set up size
+        var width = 800,
+            height = width;
+
+        // Set up projection that map is using
+        var projection = d3.geo.mercator()
+            .center([-122.433701, 37.767683]) // San Francisco, roughly
+            .scale(225000)
+            .translate([width / 2, height / 2]);
+
+        // Add an svg element to the DOM
+        var svg = d3.select("#right").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Add svg map at correct size, assumes map is saved in a subdirectory called "data"
+        svg.append("image")
+                  .attr("width", width)
+                  .attr("height", height)
+                  .attr("xlink:href", "sf-map.svg");
+
+        function dayFilter (d) {
+
+            var day = d.DayOfWeek;
+            if (day == "Monday") {
+                if (document.getElementById("Mon").checked == true) {
+                    return true;
+                }
+            } else if (day == "Tuesday") {
+                if  (document.getElementById("Tue").checked == true) {
+                    return true;
+                }
+            } else if (day == "Wednesday") {
+                if  (document.getElementById("Wed").checked == true) {
+                    return true;
+                }
+            } else if (day == "Thursday") {
+                if  (document.getElementById("Thur").checked == true) {
+                    return true;
+                }
+            } else if (day == "Friday") {
+                if  (document.getElementById("Fri").checked == true) {
+                    return true;
+                }
+            } else if (day == "Saturday") {
+                if  (document.getElementById("Sat").checked == true) {
+                    return true;
+                }
+            } else if (day == "Sunday") {
+                if  (document.getElementById("Sun").checked == true) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        function crimeFilter(d) {
+            var crime = d.Category;
+
+            if (crime == "ASSAULT") {
+                if (document.getElementById("violent").checked == true) {
+                    return true;
+                }
+            } else if (crime == "LARCENY/THEFT" || crime == "STOLEN PROPERTY" || crime == "VEHICLE THEFT") {
+                if (document.getElementById("Theft").checked == true) {
+                    return true;
+                }
+            } else if (crime == "BURGLARY") {
+                if (document.getElementById("burglary").checked == true) {
+                    return true;
+                }
+            } else if (crime == "OTHER OFFENSES") {
+                if (document.getElementById("other").checked == true) {
+                    return true;
+                }
+            } else if (crime == "NON-CRIMINAL") {
+                if (document.getElementById("nonCrim").checked == true) {
+                    return true;
+                }
+           // } else if (crime == "VEHICLE THEFT") {
+             //   if (document.getElementById("vehicle").checked == true) {
+              //      return true;
+              //  }
+            } else if (crime == "DRUG/NARCOTIC") {
+                if (document.getElementById("drug").checked == true) {
+                    return true;
+                }
+            } else if (crime == "LIQUOR LAWS" || crime == "DRUNKENNESS" || crime == "DRIVING UNDER THE INFLUENCE") {
+                if (document.getElementById("alc").checked == true) {
+                    return true;
+                }
+            } else if (crime == "VANDALISM" || crime == "TRESPASS") {
+                if (document.getElementById("vandalism").checked == true) {
+                    return true;
+                }
+          //  } else if (crime == "TRESPASS") {
+           //     if (document.getElementById("trespass").checked == true) {
+            //        return true;
+            //    }
+            } else if (crime == "ROBBERY" || crime == "EXTORTION") {
+                if (document.getElementById("robbery").checked == true) {
+                    return true;
+                }
+            } else if (crime == "SEX OFFENSES, FORCIBLE" || crime == "SEX OFFENSES, NON FORCIBLE" || crime == "PROSTITUTION" || crime == "DISORDERLY CONDUCT") {
+                if (document.getElementById("sex").checked == true) {
+                    return true;
+                }
+            } else if (crime == "DOMESTIC" || crime == "FAMILY OFFENSES") {
+                if (document.getElementById("domestic").checked == true) {
+                    return true;
+                }
+            } else if (crime == "MISSING PERSON") {
+                if (document.getElementById("missing").checked == true) {
+                    return true;
+                }
+            } else if (crime == "FORGERY/COUNTERFEITING" || crime == "FRAUD" || crime == "SECONDARY CODES" || crime == "GAMBLING" || crime == "BRIBERY" || crime == "EMBEZZLEMENT") {
+                if (document.getElementById("forgery").checked == true) {
+                    return true;
+                }
+            } else if (crime == "WARRANTS") {
+                if (document.getElementById("other").checked == true) {
+                    return true;
+                }
+            } else if (crime == "WEAPON LAWS") {
+                if (document.getElementById("weapon").checked == true) {
+                    return true;
+                }
+            } else if (crime == "SUSPICIOUS OCC" || crime == "LOITERING") {
+                if (document.getElementById("suspicious").checked == true) {
+                    return true;
+                }
+            } else if (crime == "ARSON") {
+                if (document.getElementById("arson").checked == true) {
+                    return true;
+                }
+            } else if (crime == "RUNAWAY") {
+                if (document.getElementById("runaway").checked == true) {
+                    return true;
+                }
+            } else if (crime == "KIDNAPPING") {
+                if (document.getElementById("kidnap").checked == true) {
+                    return true;
+                }
+            } else if (crime == "SUICIDE") {
+                if (document.getElementById("suicide").checked == true) {
+                    return true;
+                }
+            }
+          //  console.log(crime);
+        }
+
+        var mileRadRatio = d3.geo.distance([0,0], [0, 100]) * 100;
+
+        function radiusFilter(d) {
+            var x = projection(d.Location)[0];
+            var y = projection(d.Location)[1];
+            var hx = (Number(homeLocation[0]));
+            var hy = (Number(homeLocation[1]));
+            var jx = (Number(jobLocation[0]));
+            var jy = (Number(jobLocation[1]));
+
+          //  console.log(d3.geo.distance(projection(d.Location), homeLocation) * mileRadRatio);
+          //  console.log(Math.sqrt(Math.pow(x-hx, 2) + Math.pow(y-hy, 2)));
+           // console.log(Number(document.getElementById("secondRadius").value));
+
+            if (Number(document.getElementById("nRadius").value) >
+                Math.sqrt(Math.pow(x-hx, 2) + Math.pow(y-hy, 2)) &&
+                Number(document.getElementById("sRadius").value) >
+                Math.sqrt(Math.pow(x-jx, 2) + Math.pow(y-jy, 2))) {
+                  return true;
+            } else {
+              //  console.log("returning false");
+                return false;
+            }
+        }
+
+
+        function timeFilter(d) {
+            var t = d.Time;
+            var h = t.substring(0,2);
+            var max = document.getElementById("maxValue").value;
+            var min = document.getElementById("minValue").value;
+            if (Number(h) > min && Number(h) < max) {
+                return true;
+            }
+        }
+
+            var textbox;
+
+            //data binding (code in the lecture slides - binding circles to each data points)
+            //compute some array of the updated data -function that
+            var addlocations = function(updated_data) {
+
+
+                updated_data = updated_data
+                 .filter ( function(d, i) { return dayFilter(d, i) })
+                .filter ( function(d, i) { return crimeFilter(d, i) })
+                .filter (function(d, i) { return radiusFilter(d, i) })
+                 .filter ( function(d) { return timeFilter(d) });
+
+               circleIns = svg.selectAll("circle.incidents")
+                .data(updated_data, function(d) { return d.IncidentNumber; });
+
+                circleIns.enter()
+                .append("circle")
+                .attr("class", "incidents") //incidents
+                .attr("r", 2)
+                .attr("cx", function(d) { return projection(d.Location)[0]} )
+                .attr("cy", function(d) { return projection(d.Location)[1]} )
+                .on("mouseover", function(d){
+                    d3.select(this).attr("r", 10)
+                    .attr("fill", "red");
+
+                    textbox = svg.append("text")
+                    .attr("x", 20)
+                    .attr("y", 20)
+                    .text(d.Description);
+                })
+                .on("mouseout", function() {
+                     d3.select(this).attr("r", 2).attr("fill", "black");
+
+                     textbox.remove();
+                //    .attr("fill", function(d) { return colorScale(d.Category)} );
+                })
+                .attr("fill", "black")
+              //  .attr("fill", function(d) { return colorScale(d.Category)} );
+
+            //     //EXIT
+                 circleIns.exit().remove();
+             }
+
+            var homeLocation = [400, 320];
+            var jobLocation = [350, 370];
+
+
+            var setPointsAandB = function() {
+            //    console.log("entered add home and work function ");
+                //on("click", function() {x = d3.mouse(this)[0], y = d3.mouse(this)[1]})
+
+
+               // updates radius
+                d3.select("#nRadius").on("input", function() {
+                    updateRadius(+this.value);
+                });
+
+                d3.select("#sRadius").on("input", function() {
+                    updateSecondRadius(+this.value);
+                });
+
+
+                var homeDot = svg
+                .append("circle")
+                .attr("class", "home") //the class of circle (to distinguish from other circles)
+                .attr("r", 80)
+                .attr("cx", function(d) { return homeLocation[0]; })
+                .attr("cy", function(d) { return homeLocation[1]; })
+                .style("opacity", 0.1)
+                .style("fill", "blue")
+                .call(dragHome);
+
+                var jobDot = svg
+                .append("circle")
+                .attr("class", "job") //the class of circle (to distinguish from other circles)
+                .attr("r", 80)
+                .attr("cx", function(d) { return jobLocation[0]; })
+                .attr("cy", function(d) { return jobLocation[1]; })
+                .style("opacity", 0.1)
+                .style("fill", "red")
+                .call(dragJob);
+
+
+                //d3.select("#radApply").on("click", updateFilter);
+
+                updateRadius(200); //function to update radius
+                updateSecondRadius(200);
+
+
+
+
+                //next: group the radius and the home/work location
+            }
+
+        </script>
+    </div>
+    <div/>
+    </body>
+</html>
